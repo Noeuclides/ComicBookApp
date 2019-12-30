@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+ComicBook
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/mystyle.css') }}">
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+{% block navbar %}
+<div class="well well-sm">
+    <strong>lastest isssues</strong>
+    <div class="btn-group">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+        </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+            class="glyphicon glyphicon-th"></span>Grid</a>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    {% for comic in comics| sort(attribute='date_added', reverse=True) %}
+    <div id="products" class="column list-group">
+        <div class="item  col-sm-3 col-sm-3">
+            <div class="thumbnail">
+                <img class="group list-group-image" src={{ comic['image'].original_url }} alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{ (comic['volume'].name, "#" ~ comic.issue_number, comic.name|default('', true))|join(' ') }}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{ comic['date_added'] }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% endblock %}
