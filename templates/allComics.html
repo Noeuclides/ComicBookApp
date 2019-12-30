@@ -15,6 +15,7 @@ ComicBook
 {% endblock %}
 
 {% block body %}
+<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">ComicBook</h1>
 {% block navbar %}
 <div class="well well-sm">
     <strong>lastest isssues</strong>
@@ -28,11 +29,11 @@ ComicBook
 {% block content %}
 
 <div class="container">
+    <div class="row text-center text-lg-left">
     {% for comic in comics| sort(attribute='date_added', reverse=True) %}
-    <div id="products" class="column list-group">
-        <div class="item  col-sm-3 col-sm-3">
+        <div class="col-xs-3">
             <div class="thumbnail">
-                <img class="group list-group-image" src={{ comic['image'].original_url }} alt="" />
+                <img class="img-fluid img-thumbnail" src={{ comic['image'].original_url }} alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         {{ (comic['volume'].name, "#" ~ comic.issue_number, comic.name|default('', true))|join(' ') }}</h4>
@@ -41,8 +42,8 @@ ComicBook
                 </div>
             </div>
         </div>
-    </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}
 {% endblock %}
