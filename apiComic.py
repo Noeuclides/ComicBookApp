@@ -1,9 +1,7 @@
 from flask import Flask, render_template
-from flask_bootstrap import Bootstrap
-import requests, json, urllib.request
+import requests, json, urllib.request, datetime
  
 app = Flask(__name__)
-Bootstrap(app)
  
 @app.route('/', methods=['GET'])
 def home():
@@ -13,9 +11,24 @@ def home():
         req = urllib.request.urlopen(url)
         data = req.read().decode()
         allComics = json.loads(data)
+        comicInfo = []
+        comics = []
+        for comic in allComics['results']:
+            if comic['name'] is not None:
+                comicName = comic['volume']['name'] + ' #' + comic['issue_number'] + ' - ' + comic['name']
+            else:
+                comicName = comic['volume']['name'] + ' #' + comic['issue_number']
+            dateTime = datetime.datetime.strptime(comic['date_added'], '%Y-%m-%d %H:%M:%S')
+            comicInfo.append(comicName)
+            comicInfo.append(dateTime.strftime('%B %d, %Y'))
+            comicInfo.append(comic['image']['original_url'])
+            comics.append(comicInfo)
+            comicInfo = []
+            sorted(comics, key = lambda x: x[1], reverse=True)
+        return render_template("allComics.html", comics=comics)
     except:
-        allComics = {'results':[]}
-    return render_template("allComics.html", comics=allComics['results'])
+        pass
+
 
 @app.route('/<string:issueNumber>', methods=['GET'])
 def issue_detail(issueNumber):
@@ -27,7 +40,7 @@ def issue_detail(issueNumber):
         detailComic = json.loads(data)
     except:
         detailComic = {'results':[]}
-    print(url)
+    print("URL", url)
     imgList = []
     nameList = []
     creditsList = []

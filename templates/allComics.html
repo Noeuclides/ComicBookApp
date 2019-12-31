@@ -1,49 +1,48 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}
-ComicBook
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/mystyle.css') }}">
-{% endblock %}
-
-{% block scripts %}
-{{super()}}
-<script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
-
-{% endblock %}
-
-{% block body %}
-<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">ComicBook</h1>
-{% block navbar %}
-<div class="well well-sm">
-    <strong>lastest isssues</strong>
-    <div class="btn-group">
-        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-        </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-            class="glyphicon glyphicon-th"></span>Grid</a>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/mystyle.css') }}">
+    <script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
+</head>
+<body>
+    <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
+    <div class="container">
+        <div class="border">
+            <p>latest issue</p>
+                    <div class="btn-group">
+                        <button class="btn btn-info" id="list">
+                            List View
+                        </button>
+                        <button class="btn btn-danger" id="grid">
+                            Grid View
+                        </button>
+                    </div>
+        </div>
     </div>
-</div>
-{% endblock %}
-{% block content %}
-
-<div class="container">
-    <div class="row text-center text-lg-left">
-    {% for comic in comics| sort(attribute='date_added', reverse=True) %}
-        <div class="col-xs-3">
-            <div class="thumbnail">
-                <img class="img-fluid img-thumbnail" src={{ comic['image'].original_url }} alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        {{ (comic['volume'].name, "#" ~ comic.issue_number, comic.name|default('', true))|join(' ') }}</h4>
-                    <p class="group inner list-group-item-text">
-                        {{ comic['date_added'] }}</p>
+    <div class="container">
+        <div id="products" class="row view-group">
+            {% for name in comics %}
+            <div class="item col-sm-4" text-align: center>
+                <div class="thumbnail card">
+                    <div class="img">
+                        <img class="group list-group-image img-fluid" src={{ name[2] }} alt="" />
+                    </div>
+                    <div class="caption card-body">
+                        <h4 class="group card-title inner list-group-item-heading text-center">
+                            {{ name[0] }}
+                        </h4>
+                        <p class="group inner list-group-item-text text-center">
+                            {{ name[1] }}
+                        </p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    </div>
-</div>
-{% endblock %}
-{% endblock %}
+    </div> 
+</body>
+</html>

@@ -5,7 +5,7 @@ ComicBook
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/mystyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/issuestyle.css') }}">
 {% endblock %}
 
 {% block scripts %}
@@ -81,9 +81,9 @@ ComicBook
             {% endfor %}           
         </div> 
     </div>
-    <div class="">
+    <div class="col">
         <div>
-            <img class="img-fluid img-thumbnail" src={{ img.original_url }} />           
+            <img class="img-fluid img-thumbnail float-right" src={{ img.original_url }} />           
         </div> 
     </div>
 {% endblock %}
