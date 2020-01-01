@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
@@ -8,28 +11,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/mystyle.css') }}">
     <script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
 </head>
+
 <body>
-    <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
-    <div class="container">
-        <div class="border">
-            <p>latest issue</p>
-                    <div class="btn-group">
-                        <button class="btn btn-info" id="list">
-                            List View
-                        </button>
-                        <button class="btn btn-danger" id="grid">
-                            Grid View
-                        </button>
-                    </div>
+    <header>
+        <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
+    </header>
+    <div class="container" style="margin-bottom: 20px;margin-top: 20px;">
+        <div class="row">
+            <div class="col-xs-4 col-md">
+                <h4>latest issue</h4>
+            </div>
+            <div class="col-xs-2 col-md">
+                <div class="btn-group float-right">
+                    <button class="btn" id="list">
+                        <span class="glyphicon glyphicon-th-list">List</span>
+                    </button>
+                    <button class="btn" id="grid">
+                        <span class="glyphicon glyphicon-th">Grid</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container">
         <div id="products" class="row view-group">
             {% for name in comics %}
-            <div class="item col-sm-4" text-align: center>
+            <div class="item col-sm-3" text-align: center>
                 <div class="thumbnail card">
                     <div class="img">
+                        <a class="p-2 text-dark" href="/comic/{{ name[3] }}">
                         <img class="group list-group-image img-fluid" src={{ name[2] }} alt="" />
+                        </a>
                     </div>
                     <div class="caption card-body">
                         <h4 class="group card-title inner list-group-item-heading text-center">
@@ -43,6 +55,7 @@
             </div>
             {% endfor %}
         </div>
-    </div> 
+    </div>
 </body>
+
 </html>

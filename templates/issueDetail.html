@@ -1,90 +1,58 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}
-ComicBook
-{% endblock %}
+<!DOCTYPE html>
+<html>
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/issuestyle.css') }}">
-{% endblock %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">--->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 
-{% block scripts %}
-{{super()}}
-<script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/issuestyle.css') }}">
+    <script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
+</head>
 
-{% endblock %}
+<body style="background-color: #efecea;">
+    <header>
+        <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
+    </header>
 
-{% block body %}
-<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0">ComicBook</h1>
-{% block content %}
-<div class="container">
-    <div class="col">
-        <h3>Characters</h3>
-        <div>
-            {% for name, img in issue[0].items() %}
-            <div class="row">
-                <p>{{ name }}</p>
-                <img class="img-fluid img-thumbnail" src={{ img }} />
+    <div class="container">
+        <div class="row m">
+            <div class="col">
+                {% for i in range(credits|length) %}
+                <div class="container">
+                    <div class="row">
+                        <h3>{{ credits[i] }}</h3>
+                        <div class="h-divider" style="height:1px; width:100%; border-top:1px solid gray; ">
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                {% for name in issue[i]|sort %}
+                                <div class="col-sm-6 d-flex justify-content-right align-items-center">
+
+                                    <p>
+                                        {% if name[1]|length %}
+                                        <img class="img" style="width: 30px; border-radius: 10%;" src={{ name[1] }} />
+                                        {% endif %}
+                                
+                                    {{ name[0] }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}           
+            <div class="col">
+                <div>
+                    <img class="img-fluid img-thumbnail float-right" src={{ img.original_url }} />
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="">
-        <h3>Teams</h3>
-        <div>
-            {% for name, img in issue[1].items() %}
-            <li>
-                <ul>
-                    <p>{{ name }}</p>
-                    <img class="img-fluid img-thumbnail" src={{ img }} />
-                </ul>
-            </li>
-            {% endfor %}           
-        </div> 
-    </div>
-    <div class="">
-        <h3>Locations</h3>
-        <div>
-            {% for name, img in issue[2].items() %}
-            <li>
-                <ul>
-                    <p>{{ name }}</p>
-                    <img class="img-fluid img-thumbnail" src={{ img }} />
-                </ul>
-            </li>
-            {% endfor %}           
-        </div> 
-    </div>
-    <div class="">
-        <h3>Concepts</h3>
-        <div>
-            {% for name, img in issue[3].items() %}
-            <li>
-                <ul>
-                    <p>{{ name }}</p>
-                    <img class="img-fluid img-thumbnail" src={{ img }} />
-                </ul>
-            </li>
-            {% endfor %}           
-        </div> 
-    </div>
-    <div class="">
-        <h3>Objects</h3>
-        <div>
-            {% for name, img in issue[4].items() %}
-            <li>
-                <ul>
-                    <p>{{ name }}</p>
-                    <img class="img-fluid img-thumbnail" src={{ img }} />
-                </ul>
-            </li>
-            {% endfor %}           
-        </div> 
-    </div>
-    <div class="col">
-        <div>
-            <img class="img-fluid img-thumbnail float-right" src={{ img.original_url }} />           
-        </div> 
-    </div>
-{% endblock %}
-{% endblock %}
+</body>
+
+</html>

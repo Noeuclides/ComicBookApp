@@ -1,3 +1,12 @@
+.card {
+    border: none;
+}
+
+.glyphicon .glyphicon-th-list {
+    color: blue;
+    font-size: 20px;
+
+}
 .view-group {
     display: -ms-flexbox;
     display: flex;

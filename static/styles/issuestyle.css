@@ -1,7 +1,15 @@
 .thumbnail {
     display: block;
     padding: 4px;
-    background-color: aqua;
-    margin-bottom: 0px;
+    background-color: #efecea;
     border: none;
+    width: 25%;
 }
+
+.h-divider{
+    margin-top:5px;
+    margin-bottom:5px;
+    height:1px;
+    width:100%;
+    border-top:1px solid gray;
+   }
