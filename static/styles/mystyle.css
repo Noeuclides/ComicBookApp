@@ -1,3 +1,7 @@
+img {
+    border-style: solid;
+    border: 2px #000000;
+}
 .card {
     border: none;
 }

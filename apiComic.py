@@ -1,11 +1,12 @@
 from flask import Flask, render_template, make_response, redirect
-import requests, json, urllib.request, datetime
+from comicInfo import request_data, comic_credits, date_format, user_offset
 import sys
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
  
 API_KEY = sys.argv[2]
+CREDITS = ['Characters', 'Teams', 'Locations', 'Concepts', 'Objects']
 
 @app.route('/')
 def home():
@@ -21,27 +22,21 @@ def collection():
     """
     method to get all the comics in an specific api endpoint
     """
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'}
-    queryString = "?api_key=" + API_KEY + "&offset=680000&format=json" 
+    queryString = "?api_key=" + API_KEY + "&offset=0&format=json" 
     url = "https://comicvine.gamespot.com/api/issues/" + queryString
-    try:
-        req = urllib.request.Request(url, headers = headers)
-        resp = urllib.request.urlopen(req)
-        data = resp.read().decode()
-        allComics = json.loads(data)
-    except BaseException as e:
-        print(e)
-        pass
+    totalOffsets = user_offset(url)
+    print("number_of_total_results: ", totalOffsets)
+    allComics = request_data(url)
     comicInfo = []
     comics = []
-    for comic in allComics['results']:
-        if comic['name'] is not None:
+    for comic in allComics:
+        if comic['name']:
             comicName = comic['volume']['name'] + ' #' + comic['issue_number'] + ' - ' + comic['name']
         else:
             comicName = comic['volume']['name'] + ' #' + comic['issue_number']
-        dateTime = datetime.datetime.strptime(comic['date_added'], '%Y-%m-%d %H:%M:%S')
+        dateTime = date_format(comic['date_added'])
         comicInfo.append(comicName)
-        comicInfo.append(dateTime.strftime('%B %d, %Y'))
+        comicInfo.append(dateTime)
         comicInfo.append(comic['image']['original_url'])
         comicId = comic['api_detail_url'].split("/")
         comicInfo.append(comicId[5] + "/" + queryString)
@@ -51,6 +46,7 @@ def collection():
     return render_template("allComics.html", comics=comics)
 
 
+
 @app.route('/comic/<string:issueNumber>', methods=['GET'])
 def issue_detail(issueNumber):
     """
@@ -58,40 +54,14 @@ def issue_detail(issueNumber):
     """
     queryString = "?api_key=" + API_KEY + "&format=json"
     url = "https://comicvine.gamespot.com/api/issue/" + issueNumber + '/' + queryString
-    try:
-        req = urllib.request.urlopen(url)
-        data = req.read().decode()
-        detailComic = json.loads(data)
-    except:
-        detailComic = {'results':[]}
+    
+    detailComic = request_data(url)
     print("URL", url)
-    imgList = []
-    nameList = []
-    creditsList = []
-    issueList = ['character_credits', 'team_credits', 'location_credits', 'concept_credits', 'object_credits']
-    credits = ['Characters', 'Teams', 'Locations', 'Concepts', 'Objects']
-    for item in issueList:
-        for char in detailComic['results'][item]:
-            nameList.append(char['name'])
-            urlChar = char['api_detail_url'] + queryString
-            try:
-                req = urllib.request.urlopen(urlChar)
-                dataChar = req.read().decode()
-                character = json.loads(dataChar)
-                iconImg = character['results']['image']['icon_url']
-            except:
-                character = None
-                iconImg = ""
-            imgList.append(iconImg)
-        issueDict = list(zip(nameList, imgList))
-        creditsList.append(issueDict)
-        nameList = []
-        imgList = []
-    print(creditsList)
+    creditsList = comic_credits(detailComic, queryString) 
     return render_template("issueDetail.html", 
-                        img=detailComic['results']['image'], 
+                        img=detailComic['image'], 
                         issue=creditsList, 
-                        credits=credits)
+                        credits=CREDITS)
     
 
 if __name__ == '__main__':

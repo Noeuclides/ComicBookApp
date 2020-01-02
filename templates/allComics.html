@@ -12,7 +12,7 @@
     <script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
 </head>
 
-<body>
+<body style="background-color: #efecea;">
     <header>
         <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
     </header>
@@ -37,7 +37,7 @@
         <div id="products" class="row view-group">
             {% for name in comics %}
             <div class="item col-sm-3" text-align: center>
-                <div class="thumbnail card">
+                <div class="thumbnail card" style="background-color: transparent;">
                     <div class="img">
                         <a class="p-2 text-dark" href="/comic/{{ name[3] }}">
                         <img class="group list-group-image img-fluid" src={{ name[2] }} alt="" />
