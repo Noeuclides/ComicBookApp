@@ -5,7 +5,7 @@ import sys
 app = Flask(__name__)
 app.url_map.strict_slashes = False
  
-API_KEY = sys.argv[2]
+API_KEY = sys.argv[len(sys.argv) - 1]
 CREDITS = ['Characters', 'Teams', 'Locations', 'Concepts', 'Objects']
 
 @app.route('/')
