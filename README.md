@@ -8,7 +8,7 @@ Features:
 -   Show a detail of the selected comic
 
 ## Prerequisites
-This app was set with python 3.5, so you have to make sure that you have python installed in you machine.
+This app was set with python 3.5, so you have to make sure that you have python3 installed in you machine.
 
 It's better to set a virtual environment. To do that first install virtualenv:
 
@@ -17,7 +17,7 @@ It's better to set a virtual environment. To do that first install virtualenv:
  then we are going to create the virtualenv to run the app, please ru the following commands in your terminal:
  
     $ mkdir myvirtualEnvs && cd myvirtualEnvs
-    $ virtualenv comicAppEnv -p /usr/bin/python3.5
+    $ virtualenv comicAppEnv -p $(which python3)
     $ cd
     
 
@@ -34,7 +34,7 @@ then go to the repo's directory:
 
 There you can install all the prerequisites to run the app in your computer:
 
-    $ pip install -r requirements.txt --no-index --find-links file:///tmp/packages
+    $ pip install -r requirements.txt
 
 Before run the application you have to ask for an api key in the Comic Vine page, you can do that in the following link:
 https://comicvine.gamespot.com/api/ 
@@ -59,3 +59,11 @@ If everything goes well, you should see something like this:
      * Restarting with stat
      * Debugger is active!
      * Debugger PIN: 256-533-796
+
+go to your browser and write "0.0.0.0:8080", like this:
+![enter image description here](https://i.imgur.com/C38ZhOC.png)
+
+And you'll see the full comics page (100 comics in a grid):
+![enter image description here](https://i.imgur.com/cqNVf3h.png)
+
+
