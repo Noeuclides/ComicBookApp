@@ -1,3 +1,7 @@
+.title_head {
+    margin-bottom: 20px;
+}
+
 .thumbnail {
     display: block;
     padding: 4px;
@@ -6,10 +10,25 @@
     width: 25%;
 }
 
-.h-divider{
-    margin-top:5px;
-    margin-bottom:5px;
-    height:1px;
+.credits{
+    margin-top:10px;
+    margin-bottom:20px;
     width:100%;
-    border-top:1px solid gray;
-   }
+    border-bottom:1px solid gray;
+}
+
+.credits_img {
+    width: 30px; 
+    border-radius: 10%;
+    margin-right: 10px;
+}
+ 
+.img_credits {
+    margin: 5px 20px 10px 0px;
+    width: 10%;
+}
+
+.main_comic_img {
+    margin: auto;
+    display: block;
+}

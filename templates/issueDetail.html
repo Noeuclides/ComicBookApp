@@ -8,13 +8,13 @@
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/issuestyle.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/issuestyle.css') }}">
     <script src="{{ url_for('static', filename='scripts/myscripts.js') }}"></script>
 </head>
 
 <body style="background-color: #efecea;">
     <header>
-        <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0">ComicBook</h1>
+        <h1 class="font-weight-light text-center text-lg-center mt-4 mb-0 title_head">ComicBook</h1>
     </header>
 
     <div class="container">
@@ -23,20 +23,21 @@
                 {% for i in range(credits|length) %}
                 <div class="container">
                     <div class="row">
-                        <h3>{{ credits[i] }}</h3>
-                        <div class="h-divider" style="height:1px; width:100%; border-top:1px solid gray; ">
+                        <div class="credits">
+                            <h3>{{ credits[i] }}</h3>
                         </div>
-                        <div class="container">
+
+                        <div class="container" style="margin-bottom: 30px;">
                             <div class="row">
                                 {% for name in issue[i]|sort %}
                                 <div class="col-sm-6 d-flex justify-content-right align-items-center">
 
-                                    <p>
-                                        
-                                        <img class="img" style="width: 30px; border-radius: 10%;" src={{ name[1] }} />
-                                
-                                
-                                    {{ name[0] }}</p>
+                                    <div class="img_credits">
+                                        <img class="img credits_img" src={{ name[1] }} />
+                                    </div>
+                                    <div class="align-text-bottom" style="font-size: 80%;">
+                                        {{ name[0] }}
+                                    </div>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -45,7 +46,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="col">
+            <div class="col main_comic_img">
                 <div>
                     <img class="img-fluid img-thumbnail float-right" src={{ img.original_url }} />
                 </div>

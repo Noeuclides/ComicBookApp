@@ -4,6 +4,7 @@ import json, urllib.request, datetime
 
 def request_data(url):
     """
+    method to make the requests to the api. Return results list
     """
     try:
         with urllib.request.urlopen(url) as resp:
@@ -15,6 +16,7 @@ def request_data(url):
 
 def user_offset(url):
     """
+    method to get the total number of results by making a request too the api
     """
     try:
         with urllib.request.urlopen(url) as resp:
