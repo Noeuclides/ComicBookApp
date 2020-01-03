@@ -8,7 +8,7 @@ Features:
 -   Show a detail of the selected comic
 
 ## Prerequisites
-This app was set with python 3.5, so you have to make sure that you have python3 installed in you machine.
+This app was set with python 3.5, so you have to make sure that you have python3 installed in your machine.
 
 It's better to set a virtual environment. To do that first install virtualenv:
 

@@ -10,7 +10,8 @@ def request_data(url):
             resultsList = json.loads(resp.read().decode('utf-8'))
             return resultsList.get('results')
     except HTTPError as e:
-        return (format(e.code))
+        print(("{} at {}").format(e, url))
+        return (str(e))
 
 def user_offset(url):
     """
@@ -25,6 +26,9 @@ def user_offset(url):
 
 
 def comic_credits(detailComic, queryString):
+    """
+    method a list  with the tuple name-image in theirs respective credits
+    """
     issueList = ['character_credits', 
             'team_credits', 
             'location_credits', 
@@ -33,6 +37,7 @@ def comic_credits(detailComic, queryString):
     imgList = []
     nameList = []
     creditsList = []  
+
     for item in issueList:
         for char in detailComic[item]:
             nameList.append(char['name'])
@@ -43,17 +48,17 @@ def comic_credits(detailComic, queryString):
             else:
                 iconImg = character        
             imgList.append(iconImg)
-            print("NAME: ", nameList)
-            print("IMG: ", imgList)
+
         issueDict = list(zip(nameList, imgList))
         creditsList.append(issueDict)
+        print(creditsList)
         nameList = []
         imgList = []
     return(creditsList)
 
 def date_format(date):
     """
-    method that return the date in the specified format
+    method that return the date in the specified format (month day, year)
     """
     dateTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
     return(dateTime.strftime('%B %d, %Y'))

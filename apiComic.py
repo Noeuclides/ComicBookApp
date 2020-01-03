@@ -18,17 +18,19 @@ def home():
 
 
 @app.route('/collection', methods=['GET'])
-def collection():
+@app.route('/collection/<index>', methods=['GET'])
+def collection(index=0):
     """
-    method to get all the comics in an specific api endpoint
+    method to get all the comics in an specific api endpoint.
     """
-    queryString = "?api_key=" + API_KEY + "&offset=0&format=json" 
+    queryString = "?api_key=" + API_KEY + "&offset=" + str(index) + "&format=json" 
     url = "https://comicvine.gamespot.com/api/issues/" + queryString
     totalOffsets = user_offset(url)
     print("number_of_total_results: ", totalOffsets)
     allComics = request_data(url)
     comicInfo = []
     comics = []
+    
     for comic in allComics:
         if comic['name']:
             comicName = comic['volume']['name'] + ' #' + comic['issue_number'] + ' - ' + comic['name']
@@ -47,7 +49,7 @@ def collection():
 
 
 
-@app.route('/comic/<string:issueNumber>', methods=['GET'])
+@app.route('/comic/<issueNumber>', methods=['GET'])
 def issue_detail(issueNumber):
     """
     method to get an specific comic information in the given api endpoint
@@ -55,8 +57,11 @@ def issue_detail(issueNumber):
     queryString = "?api_key=" + API_KEY + "&format=json"
     url = "https://comicvine.gamespot.com/api/issue/" + issueNumber + '/' + queryString
     
+    print("issue NUMBER: ", issueNumber)
     detailComic = request_data(url)
-    print("URL", url)
+    if detailComic is not dict:
+        print("detail comic: ", detailComic)
+        print("URL problem", url)
     creditsList = comic_credits(detailComic, queryString) 
     return render_template("issueDetail.html", 
                         img=detailComic['image'], 

@@ -1,6 +1,24 @@
-img {
-    border-style: solid;
-    border: 2px #000000;
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+.comic_bar {
+    border-top: solid 0.01rem #e1e1e1;
+    border-bottom: solid 0.01rem #e1e1e1;
+}
+
+
+.the-icons {
+  font-size: 1.5rem;
+  color: green;
+}
+
+.the-icons:focus {     
+    color:black;    
+}
+
+.img_comic_home {
+    border: solid 2px #000000;
+    position: relative;
+    width:  100%;
 }
 .card {
     border: none;
@@ -26,19 +44,20 @@ img {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+    background-color: transparent;
 }
 
 .item.list-group-item
 {
     float: none;
     width: 100%;
-    background-color: #fff;
+    background-color: transparent;
     margin-bottom: 30px;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
     padding: 0 1rem;
-    border: 0;
+    border-bottom: solid 0.1rem #e1e1e1;
 }
 .item.list-group-item .img-event {
     float: left;
