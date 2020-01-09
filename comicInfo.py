@@ -53,10 +53,10 @@ def comic_credits(detailComic, queryString):
 
         issueDict = list(zip(nameList, imgList))
         creditsList.append(issueDict)
-        print(creditsList)
         nameList = []
         imgList = []
     return(creditsList)
+        
 
 def date_format(date):
     """
@@ -64,3 +64,5 @@ def date_format(date):
     """
     dateTime = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
     return(dateTime.strftime('%B %d, %Y'))
+
+

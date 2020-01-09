@@ -59,15 +59,16 @@ def issue_detail(issueNumber):
     
     print("issue NUMBER: ", issueNumber)
     detailComic = request_data(url)
-    if detailComic is not dict:
+    if type(detailComic) is not dict:
+        print(type(detailComic))
         print("detail comic: ", detailComic)
         print("URL problem", url)
-    creditsList = comic_credits(detailComic, queryString) 
+    creditsList = comic_credits(detailComic, queryString)
+
     return render_template("issueDetail.html", 
                         img=detailComic['image'], 
                         issue=creditsList, 
                         credits=CREDITS)
-    
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)

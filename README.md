@@ -66,4 +66,10 @@ go to your browser and write "0.0.0.0:8080", like this:
 And you'll see the full comics page (100 comics in a grid):
 ![enter image description here](https://i.imgur.com/cqNVf3h.png)
 
+If you want to see the detail information of a comic type (with the ID of the comic):
+![enter image description here](https://i.imgur.com/AxBXXDi.png)
+
+And you'll see that specific comic's info page:
+![enter image description here](https://i.imgur.com/fsVvlkI.png)
+
 
